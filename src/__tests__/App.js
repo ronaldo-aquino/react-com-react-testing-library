@@ -12,7 +12,31 @@ test("<App /> Testando a aplicação completa", () => {
     expect( screen.getByTestId('nomeApp').textContent ).toBe('Administrador de Pacientes');
     expect( screen.getByTestId('nomeApp').tagName ).toBe('H1');
 
-    // expect( screen.getByText('Crear Cita') ).toBeInTheDocument();
-    // expect( screen.getByText('No hay citas') ).toBeInTheDocument();
+    expect( screen.getByText('Crear Cita') ).toBeInTheDocument();
+    expect( screen.getByText('No hay citas') ).toBeInTheDocument();
+    
+});
+
+test("<App /> Testando a aplicação completa", () => {
+    
+    render(<App />);
+
+    userEvent.type(screen.getByTestId("mascota"), "Hook");
+    userEvent.type(screen.getByTestId("propietario"), "Ronaldo");
+    userEvent.type(screen.getByTestId("fecha"), "2021-09-10");
+    userEvent.type(screen.getByTestId("hora"), "10:30");
+    userEvent.type(screen.getByTestId("sintomas"), "Só fica dormindo");
+
+    // Clique no botão de submit
+    const btnSubmit = screen.getByTestId("btn-submit");
+    userEvent.click(btnSubmit);
+
+     // Revisar a validação ( O alerta tem que dasaparecer)
+     const alerta = screen.queryByTestId("alerta");
+     expect(alerta).not.toBeInTheDocument();
+
+    // Validar se tem um título dinâmico
+    expect(screen.getByTestId('titulo-dinamico').textContent ).toBe('Administra tus Citas');
+    expect(screen.getByTestId('titulo-dinamico').textContent ).not.toBe('No hay citas');
     
 });
