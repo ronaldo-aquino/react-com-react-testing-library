@@ -1,0 +1,1 @@
+it("A aplicação funciona", () => {});
